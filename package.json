@@ -1,0 +1,33 @@
+{
+  "name": "client_chat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/splash.html",
+  "scripts": {
+    "dev": "nw .",
+    "prod": "node build.js"
+  },
+  "window": {
+    "title": "Chat Classe",
+    "width": 400,
+    "height": 500,
+    "frame": false,
+    "resizable": false,
+    "position": "center",
+    "icon": "src/assets/images/icons/icon.png"
+  },
+  "chromium-args": "--enable-logging --v=1",
+  "manifestUrl": "http://127.0.0.1:8080/package.json",
+  "webkit": {
+    "plugin": true
+  },
+  "author": "Guillaume Vandriessche",
+  "license": "ISC",
+  "dependencies": {
+    "nw-autoupdater": "^1.1.11",
+    "nw-builder": "^4.1.0-beta.3"
+  },
+  "devDependencies": {
+    "nw": "sdk"
+  }
+}
