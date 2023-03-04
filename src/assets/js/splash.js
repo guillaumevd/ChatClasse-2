@@ -75,11 +75,10 @@ class Splash {
       "height": 720,
       "min_width": 1280,
       "min_height": 720,
-      "frame": (process.platform == "win32") ? true : true,
+      "frame": (process.platform == "win32") ? false : true,
       "position": "center",
       "icon": "src/assets/images/icons/icon2.png"
-    });
-    win.close();
+    }, () => win.close());
   }
 
   shutdown(text){

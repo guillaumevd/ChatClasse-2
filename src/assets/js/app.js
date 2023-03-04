@@ -2,6 +2,8 @@
 
 // Panels
 import Home from './panels/home.js';
+import Parameters from './panels/parameters.js';
+import Account from './panels/account.js';
 
 // Libs
 import Popup from './lib/Popup.js';
@@ -14,13 +16,13 @@ let win = nw.Window.get();
 
 window.isDev = (window.navigator.plugins.namedItem('Native Client') !== null);
 
-class Launcher {
+class App {
   constructor(){
     this.initWindow();
-    console.log("Initializing Launcher...");
+    console.log("Initializing app...");
     if(localStorage.getItem("theme") == "white") document.children[0].classList.toggle("theme-white");
     else document.children[0].classList.toggle("theme-dark");
-    this.createPanels(Home);
+    this.createPanels(Home, Parameters, Account);
     if(process.platform == "win32") this.initFrame();
     this.loadMenu();
     setTimeout(() => {
@@ -30,13 +32,13 @@ class Launcher {
 
   initWindow(){
     window.logger = {
-      launcher: new Logger("Launcher", "#FF7F18"),
-      minecraft: new Logger("Minecraft", "#43B581")
+      app: new Logger("App", "#FF7F18"),
+      chat: new Logger("Chat", "#43B581")
     }
 
     this.initLogs();
 
-    window.console = window.logger.launcher;
+    window.console = window.logger.app;
 
     window.onerror = (message, source, lineno, colno, error) => {
       console.error(error);
@@ -84,55 +86,55 @@ class Launcher {
       logs.classList.toggle("show");
     })
 
-    /* launcher logs */
+    /* app logs */
 
-    let launcher = document.querySelector("#launcher.logger");
+    let app = document.querySelector("#app.logger");
 
-    launcher.querySelector(".header").addEventListener("click", () => {
-      launcher.classList.toggle("open");
+    app.querySelector(".header").addEventListener("click", () => {
+      app.classList.toggle("open");
     });
 
-    let lcontent = launcher.querySelector(".content");
+    let lcontent = app.querySelector(".content");
 
-    logger.launcher.on("info", (...args) => {
+    logger.app.on("info", (...args) => {
       addLog(lcontent, "info", args);
     });
 
-    logger.launcher.on("warn", (...args) => {
+    logger.app.on("warn", (...args) => {
       addLog(lcontent, "warn", args);
     });
 
-    logger.launcher.on("debug", (...args) => {
+    logger.app.on("debug", (...args) => {
       addLog(lcontent, "debug", args);
     });
 
-    logger.launcher.on("error", (...args) => {
+    logger.app.on("error", (...args) => {
       addLog(lcontent, "error", args);
     });
 
-    /* minecraft logs */
+    /* chat logs */
 
-    let minecraft = document.querySelector("#minecraft.logger");
+    let chat = document.querySelector("#chat.logger");
 
-    minecraft.querySelector(".header").addEventListener("click", () => {
-      minecraft.classList.toggle("open");
+    chat.querySelector(".header").addEventListener("click", () => {
+      chat.classList.toggle("open");
     });
 
-    let mcontent = minecraft.querySelector(".content");
+    let mcontent = chat.querySelector(".content");
 
-    logger.minecraft.on("info", (...args) => {
+    logger.chat.on("info", (...args) => {
       addLog(mcontent, "info", args);
     });
 
-    logger.minecraft.on("warn", (...args) => {
+    logger.chat.on("warn", (...args) => {
       addLog(mcontent, "warn", args);
     });
 
-    logger.minecraft.on("debug", (...args) => {
+    logger.chat.on("debug", (...args) => {
       addLog(mcontent, "debug", args);
     });
 
-    logger.minecraft.on("error", (...args) => {
+    logger.chat.on("error", (...args) => {
       addLog(mcontent, "error", args);
     });
 
@@ -176,18 +178,10 @@ class Launcher {
         }
         this.active.classList.toggle("active");
         (this.active = button).classList.toggle("active");
-        this.changePanel("home");
+        this.changePanel(button.id);
       });
     });
 
-    let account = document.querySelector(".account-side");
-    let settings = document.querySelector("#settings");
-    account.addEventListener("click", () => {
-      if(settings.classList.contains("close")) settings.classList.toggle("close");
-      this.active.classList.toggle("active");
-      (this.active = document.querySelector("#account.button")).classList.toggle("active");
-      this.changePanel("home");
-    });
 
     /* white theme easter */
     account.addEventListener("mouseup", (e) => {
@@ -252,4 +246,4 @@ class Launcher {
 
 }
 
-new Launcher();
+new App();

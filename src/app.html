@@ -1,10 +1,78 @@
 <html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Test</title>
-</head>
-<body>
-	<h1>test</h1>
-</body>
+  <head>
+    <meta charset="UTF-8" http-equiv="Content-Security-Policy" content="script-src 'self' 'wasm-eval'; object-src 'self'">
+    <link rel="stylesheet/less" type="text/css" href="assets/css/app.less" />
+    <script src="assets/js/lib/less.js"></script>
+  </head>
+  <body class="hide">
+    <div class="dragbar hide"></div>
+    <div class="frame hide">
+      <div id="minimize" class="button icon-minimize"></div>
+      <div id="maximize" class="button icon-maximize"></div>
+      <div id="close" class="button icon-close"></div>
+    </div>
+    <div class="log-bg">
+      <div class="log">
+        <div class="log-close icon-close"></div>
+        <div class="log-content">
+          <div class="title">Console</div>
+          <div class="logger" id="app">
+            <div class="header">
+              <div class="icon icon-memory"></div>
+              <div class="type">Logs Application</div>
+              <div class="expand icon-expand"></div>
+            </div>
+            <div class="content"></div>
+          </div>
+          <div class="logger" id="chat">
+            <div class="header">
+              <div class="icon icon-memory"></div>
+              <div class="type">Logs Chat</div>
+              <div class="expand icon-expand"></div>
+            </div>
+            <div class="content"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="loading-bg">
+      <div class="loading">
+        <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38">
+          <g fill="none" fill-rule="evenodd">
+            <g transform="translate(1 1)" stroke-width="2">
+              <circle stroke-opacity=".5" cx="18" cy="18" r="18"/>
+              <path d="M36 18c0-9.94-8.06-18-18-18">
+                <animateTransform attributeName="transform" type="rotate" from="0 18 18" to="360 18 18" dur="1s" repeatCount="indefinite"/>
+              </path>
+            </g>
+          </g>
+        </svg>
+        <div class="information"></div>
+      </div>
+    </div>
+    <div class="popup-bg">
+      <div class="popup">
+        <div class="title"></div>
+        <div class="information"></div>
+        <div class="buttons"></div>
+      </div>
+    </div>
+    <div class="sidebar">
+      <div class="account-side" aria-label="non connecté">
+        <img class="account-side-img" src="./assets/images/profile.jpg"/>
+        <div class="account-side-connected red"></div>
+      </div>
+      <div class="box panels">
+        <div id="home" aria-label="Accueil" class="button icon-home active"></div>
+        <div id="settings" aria-label="Paramètres" class="button icon-settings close"></div>
+        <div id="stg" class="category">
+          <div id="account" aria-label="Compte" class="button icon-account"></div>
+          <div id="parameters" aria-label="Paramètres" class="button icon-start"></div>
+        </div>
+      </div>
+    </div>
+    <div id="panels">
+    </div>
+    <script src="assets/js/app.js" type="module"></script>
+  </body>
 </html>

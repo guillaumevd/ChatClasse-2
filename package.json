@@ -1,11 +1,12 @@
 {
   "name": "client_chat",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "src/splash.html",
   "scripts": {
     "dev": "nw .",
-    "prod": "node build.js"
+    "prod": "nwbuild --mode=build --version=1.0.1 --flavor=normal --platform=win --arch=x64 --outDir=./dist --cacheDir=./tmp ./",
+    "build": "node build.js"
   },
   "window": {
     "title": "Chat Classe",
@@ -16,14 +17,16 @@
     "position": "center",
     "icon": "src/assets/images/icons/icon.png"
   },
-  "chromium-args": "--enable-logging --v=1",
-  "manifestUrl": "http://127.0.0.1:8080/package.json",
+  "chromium-args": "--enable-logging=stderr",
+  "manifestUrl": "http://146.59.227.84:8080/package.json",
   "webkit": {
     "plugin": true
   },
   "author": "Guillaume Vandriessche",
   "license": "ISC",
   "dependencies": {
+    "firebase": "^9.17.2",
+    "firebase-admin": "^11.5.0",
     "nw-autoupdater": "^1.1.11",
     "nw-builder": "^4.1.0-beta.3"
   },
