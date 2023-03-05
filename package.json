@@ -2,11 +2,16 @@
   "name": "client_chat",
   "version": "1.0.1",
   "description": "",
+  "author": "Guillaume Vandriessche",
+  "license": "ISC",
   "main": "src/splash.html",
+  "manifestUrl": "http://146.59.227.84:8080/package.json",
   "scripts": {
     "dev": "nw .",
-    "prod": "nwbuild --mode=build --version=1.0.1 --flavor=normal --platform=win --arch=x64 --outDir=./dist --cacheDir=./tmp ./",
-    "build": "node build.js"
+    "build:win": "npm install && build --win --x64 --mirror https://dl.nwjs.io/ .",
+    "build:mac": "npm install && build --mac --x64 --mirror https://dl.nwjs.io/ .",
+    "build:linux": "npm install && build --linux --x64 --mirror https://dl.nwjs.io/ .",
+    "build": "npm run build:linux && npm run build:mac && npm run build:win"
   },
   "window": {
     "title": "Chat Classe",
@@ -18,19 +23,52 @@
     "icon": "src/assets/images/icons/icon.png"
   },
   "chromium-args": "--enable-logging=stderr",
-  "manifestUrl": "http://146.59.227.84:8080/package.json",
   "webkit": {
     "plugin": true
   },
-  "author": "Guillaume Vandriessche",
-  "license": "ISC",
+  "build": {
+    "appId": "Chat Classe",
+    "nwVersion": "0.73.0",
+    "packed": true,
+    "targets": [
+      "zip",
+      "nsis7z"
+    ],
+    "strippedProperties": [
+      "build"
+    ],
+    "excludes": [
+      ".gitignore",
+      "package-lock.json",
+      "README.md"
+    ],
+    "outputPattern": "${NAME}-${PLATFORM}",
+    "win": {
+      "productName": "Chat Classe",
+      "companyName": "ChatClasse",
+      "copyright": "copyright",
+      "icon": "./src/assets/images/icons/icon.ico"
+    },
+    "mac": {
+      "displayName": "Chat Classe",
+      "copyright": "copyright",
+      "plistStrings": {
+        "CFBundleIdentifier": "Chat-Classe"
+      }
+    },
+    "nsis": {
+      "installDirectory": "$LOCALAPPDATA\\Programs\\${_COMPANYNAME}",
+      "diffUpdaters": false
+    }
+  },
+  "type": "module",
   "dependencies": {
     "firebase": "^9.17.2",
     "firebase-admin": "^11.5.0",
-    "nw-autoupdater": "^1.1.11",
-    "nw-builder": "^4.1.0-beta.3"
+    "nw-autoupdater": "^1.1.11"
   },
   "devDependencies": {
-    "nw": "sdk"
+    "nw": "sdk",
+    "nwjs-builder-luuxis": "^1.5.3"
   }
 }
