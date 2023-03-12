@@ -1,53 +1,29 @@
 'use strict';
 
-import Firebase from '../lib/Firebase.js';
+import Chat from '../lib/Chat.js';
 
 class Home {
   static id = "home";
-  constructor() {
-    this.firebase = new Firebase();
-    this.messagesContent = document.getElementById("messages-content");
-    this.firebase.db.ref("messages").on("child_added", snapshot => {
-      const message = snapshot.val();
-      const sender = message.sender || "Anonymous";
-      const text = message.message || "";
-      const html = `
-        <div class="message">
-          <div class="message-sender">${sender}</div>
-          <div class="message-text">${text}</div>
-        </div>
-      `;
-      this.messagesContent.insertAdjacentHTML("beforeend", html);
-    });
-  }
   async init(popup){
-    var self = this;
-    document.getElementById("message").addEventListener("keydown", function(event) {
-      if (event.key === "Enter") {
-        var messageInput = document.getElementById("message");
-        var message = messageInput.value.trim();
-        if (message !== "") {
-          messageInput.value = "";
-          self.sendMessage(message);
-        }
-      }
-    });
+
+    const chat = new Chat();
+
     this.popup = popup;
+    this.initLinks();
   }
-  async sendMessage(message) {
-    try
-    {
-      window.logger.chat.log('[CHAT] Message send:', message);
-      this.firebase.db.ref("messages").push().set({
-        "message": message,
-        "sender": 'Guillaume'
-      });
-    }
-    catch(error)
-    {
-      window.logger.chat.log('[CHAT] Error while sending message:', error);
-    }
+  initLinks(){
+    /* terms */
+
+    let ToU = document.querySelector("#ToU");
+    ToU.addEventListener("click", () => {
+      nw.Shell.openExternal("https://chatclasse.com/help/cgu");
+    });
+    let ToS = document.querySelector("#ToS");
+    ToS.addEventListener("click", () => {
+      nw.Shell.openExternal("https://chatclasse.com/help/cgv");
+    });
   }
+  
 }
 
 function sleep(ms){

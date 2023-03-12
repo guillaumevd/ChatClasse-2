@@ -8,7 +8,7 @@ class Parameters {
     this.welcome();
   }
   async welcome(){
-    return this.popup.showPopup("Aucun compte", "Vous devez vous connecter à votre compte minecraft avant de pouvoir vous connecter au teamspeak", "warning", { value: "Ok" });
+    // return this.popup.showPopup("Aucun compte", "Vous devez vous connecter à votre compte minecraft avant de pouvoir vous connecter au teamspeak", "warning", { value: "Ok" });
   }
 }
 

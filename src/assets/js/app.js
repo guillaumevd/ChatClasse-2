@@ -9,6 +9,7 @@ import Account from './panels/account.js';
 import Popup from './lib/Popup.js';
 import Logger from './lib/Logger.js';
 
+
 const fs = require("fs");
 const popup = new Popup();
 
@@ -18,6 +19,7 @@ window.isDev = (window.navigator.plugins.namedItem('Native Client') !== null);
 
 class App {
   constructor(){
+    win.show();
     this.initWindow();
     console.log("Initializing app...");
     if(localStorage.getItem("theme") == "white") document.children[0].classList.toggle("theme-white");
@@ -25,6 +27,7 @@ class App {
     this.createPanels(Home, Parameters, Account);
     if(process.platform == "win32") this.initFrame();
     this.loadMenu();
+
     setTimeout(() => {
       document.body.classList.remove("hide");
     }, 250);
@@ -182,6 +185,14 @@ class App {
       });
     });
 
+    let account = document.querySelector(".account-side");
+    let settings = document.querySelector("#settings");
+    account.addEventListener("click", () => {
+      if(settings.classList.contains("close")) settings.classList.toggle("close");
+      this.active.classList.toggle("active");
+      (this.active = document.querySelector("#account.button")).classList.toggle("active");
+      this.changePanel("account");
+    });
 
     /* white theme easter */
     account.addEventListener("mouseup", (e) => {

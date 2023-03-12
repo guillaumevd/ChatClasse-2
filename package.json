@@ -11,18 +11,21 @@
     "build:win": "npm install && build --win --x64 --mirror https://dl.nwjs.io/ .",
     "build:mac": "npm install && build --mac --x64 --mirror https://dl.nwjs.io/ .",
     "build:linux": "npm install && build --linux --x64 --mirror https://dl.nwjs.io/ .",
-    "build": "npm run build:linux && npm run build:mac && npm run build:win"
+    "build:all": "npm run build:linux && npm run build:mac && npm run build:win"
   },
   "window": {
-    "title": "Chat Classe",
+    "icon": "src/assets/images/icons/icon.png",
+    "title": "Chat Classe2",
     "width": 400,
     "height": 500,
     "frame": false,
     "resizable": false,
-    "position": "center",
-    "icon": "src/assets/images/icons/icon.png"
+    "Transparent": true,
+    "single-instance": false,
+    "show": false,
+    "position": "center"
   },
-  "chromium-args": "--enable-logging=stderr",
+  "chromium-args": "--enable-logging=stderr --v=1 --disable-features=nw2",
   "webkit": {
     "plugin": true
   },
@@ -35,6 +38,8 @@
       "nsis7z"
     ],
     "strippedProperties": [
+      "scripts",
+      "devDependencies",
       "build"
     ],
     "excludes": [
@@ -42,33 +47,40 @@
       "package-lock.json",
       "README.md"
     ],
-    "outputPattern": "${NAME}-${PLATFORM}",
+    "outputPattern": "${NAME}-${VERSION}-${PLATFORM}",
     "win": {
       "productName": "Chat Classe",
       "companyName": "ChatClasse",
       "copyright": "copyright",
-      "icon": "./src/assets/images/icons/icon.ico"
+      "icon": "src/assets/images/icons/icon.ico"
     },
     "mac": {
       "displayName": "Chat Classe",
       "copyright": "copyright",
+      "icon": "src/assets/images/icons/icon.ico",
       "plistStrings": {
         "CFBundleIdentifier": "Chat-Classe"
       }
     },
     "nsis": {
       "installDirectory": "$LOCALAPPDATA\\Programs\\${_COMPANYNAME}",
-      "diffUpdaters": false
+      "icon": "src/assets/images/icons/icon.ico",
+      "unIcon": "src/assets/images/icons/icon.ico",
+      "languages": [
+        "English",
+        "Francais"
+      ],
+      "diffUpdaters": false,
+      "hashCalculation": true
     }
   },
-  "type": "module",
   "dependencies": {
     "firebase": "^9.17.2",
-    "firebase-admin": "^11.5.0",
-    "nw-autoupdater": "^1.1.11"
+    "nw-autoupdater": "^1.1.11",
+    "winston": "^3.8.2"
   },
   "devDependencies": {
-    "nw": "sdk",
+    "nw": "^0.73.0",
     "nwjs-builder-luuxis": "^1.5.3"
   }
 }

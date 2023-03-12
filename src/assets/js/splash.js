@@ -10,6 +10,7 @@ let isDev = (window.navigator.plugins.namedItem('Native Client') !== null);
 
 class Splash {
   constructor(){
+    win.show();
     if(localStorage.getItem("theme") == "white") document.children[0].classList.toggle("theme-white");
     else document.children[0].classList.toggle("theme-dark");
     this.splash = document.querySelector(".splash");
